@@ -36,6 +36,6 @@ public interface QueryApi {
         produces = { "application/json", "text/plain" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<SubjectVariant> postQuery(@ApiParam(value = ""  )  @Valid @RequestBody Body body);
+    ResponseEntity<Map> postQuery(@ApiParam(value = ""  )  @Valid @RequestBody Body body);
 
 }
