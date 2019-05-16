@@ -1,0 +1,154 @@
+openapi: 3.0.0
+info:
+  description: A global component-based API for querying genomic and biomedical data
+  version: "1.0.0"
+  title: UoL Global Query API Specification
+  contact:
+    email: uol.admin@cafevariome.org
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+paths:
+  /query:
+    post:
+      summary: Make a search query with any combination of the components listed.
+      operationId: postQuery
+      description: 'Make a complex query by combining the available components and defining the correct query structure with a simple query string expresses in the form of boolean logic. e.g. (A AND B) OR C'
+      requestBody:    # <-----
+        content:
+          application/json:
+            schema:
+              description: query parameter
+              type: object
+              properties:
+                query:
+                  type: object
+                  properties:
+                    components:
+                      type: object
+                      properties:
+                        subjectVariant:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/subjectVariant'
+                        eav:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              attribute:
+                                type: string
+                              operator:
+                                type: string
+                              value:
+                                type: string
+                logic:
+                  $ref: '#/components/schemas/logic'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/subjectVariant'
+        '400':
+          description: Unsuccessful response
+          content:
+            text/plain:
+              schema:
+                title: Not found
+
+components:
+  schemas:
+    logic:
+      oneOf:
+        - type: object
+          properties:
+            '-AND':
+              type: array
+              items:
+                $ref: '#/components/schemas/logic'
+        - type: object
+          properties:
+            '-OR':
+              type: array
+              items:
+                $ref: '#/components/schemas/logic'
+        - type: string
+    subjectVariant:
+      type: object
+      properties:
+        componentID:
+          type: string
+          description: The component ID
+        name:
+          type: string
+          example: rs8179178
+          description: An identifier for this variant e.g. rs id
+        source:
+          type: string
+          example: dbSNP
+          description: The source of the identifier used in name parameter
+        hgvs:
+          type: string
+          example: NM_000088.3:c.589G>T
+          description: HGVS Nomenclature
+        allele:
+          type: string
+          pattern: ^([ATCGN]+)$
+        genomebuild:
+          type: string
+          example: GRCh38
+          description: The genome build cordinates for this variant are based on e.g. GRCh38
+        chromosome:
+          type: string
+          example: 1,X,Y,MT
+          pattern: ^([1-9]|1[0-9]|2[0-2]|X|Y|MT)$
+          description: Reference name (chromosome). Accepting values 1-22, X, Y, MT
+        range:
+          type: string
+          example: 1:6635137-6635325
+          description: A comma separated list of genomic ranges in zero-based half open format, chromosome:start-end
+        referenceBases:
+          type: string
+          pattern: ^([ATCGN]+)$
+          example: G
+          description: VCF-style reference alleles for this variant. At least one base.
+        alternateBases:
+          type: string
+          example: C
+          pattern: ^([ATCGN.]+)$
+          description: VCF-style alternate alleles for this variant. At least one base but can be ".".
+        variantType:
+          type: string
+          example: SNV,INDEL
+          description: Type of variant
+        frequency:
+          type: integer
+          example: 0.25
+          description: The frequency of the variant in this subject
+        variantInheritance:
+          type: string
+          example: maternal
+          description: From which parent(s) was the variant inherited or was it de novo
+        origin:
+          type: string
+          example: germline, somatic
+          description: Is the variant germline or somatic in origin in this subject
+        pathogenic:
+          type: string
+          example: pathogenic, non-pathogenic
+          description: Whether this variant was causal for the phenotype in this subject
+        zygosity:
+          type: string
+          example: heterozygous
+          description: Zygosity of the variant in this subject
+        start:
+          type: integer
+          example: 1234567
+          description: The start coordinate of the variant in the genome
+        end:
+          type: integer
+          example: 1234570
+          description: The end coordinate of this variant in the genome
