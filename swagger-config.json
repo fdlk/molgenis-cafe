@@ -22,7 +22,7 @@
   "title": "Cafe MOLGENIS",
   "configPackage": "org.molgenis.cv.config",
   "basePackage": "org.molgenis",
-  "interfaceOnly": true,
+  "interfaceOnly": false,
   "useOptional": true,
   "library": "spring-boot"
 }
