@@ -14,3 +14,18 @@ You can view the api documentation in swagger-ui by pointing to
 http://localhost:8080/  
 
 Change default port value in application.properties
+
+## Remarks on the swagger
+### unify
+The [current implementation](api.yaml) needs to be unified with
+[the specification](https://github.com/vl62/uol-open_discovery_specification/blob/master/specification.yaml)
+because they say different things.
+
+### patternProperties
+The metadata response uses patternProperties. Those are 
+[not supported by Swagger](https://github.com/swagger-api/swagger-editor/issues/744).
+
+### code generator
+The logic tree has a structure that I can only model using a oneOf,
+but the java code generator cannot handle this.
+See https://github.com/joelittlejohn/jsonschema2pojo/issues/392
