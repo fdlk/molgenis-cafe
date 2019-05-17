@@ -10,48 +10,35 @@ info:
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 
 paths:
+  /meta:
+    get:
+      summary: retrieve source metadata
+      operationId: getMeta
+      responses:
+        '200':
+          description: Metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/meta'
+
   /query:
     post:
       summary: Make a search query with any combination of the components listed.
       operationId: postQuery
-      description: 'Make a complex query by combining the available components and defining the correct query structure with a simple query string expresses in the form of boolean logic. e.g. (A AND B) OR C'
-      requestBody:    # <-----
+      description: 'Make a complex query by combining the available components and defining the correct query structure with a simple query string expresses in the form of boolean logic.'
+      requestBody:
         content:
           application/json:
             schema:
-              description: query parameter
-              type: object
-              properties:
-                query:
-                  type: object
-                  properties:
-                    components:
-                      type: object
-                      properties:
-                        subjectVariant:
-                          type: array
-                          items:
-                            $ref: '#/components/schemas/subjectVariant'
-                        eav:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              attribute:
-                                type: string
-                              operator:
-                                type: string
-                              value:
-                                type: string
-                logic:
-                  $ref: '#/components/schemas/logic'
+              $ref: '#/components/schemas/queryRequest'
       responses:
         '200':
           description: Successful response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/subjectVariant'
+                $ref: '#/components/schemas/queryResponse'
         '400':
           description: Unsuccessful response
           content:
@@ -61,6 +48,50 @@ paths:
 
 components:
   schemas:
+    meta:
+      description: metadata
+      type: object
+    queryRequest:
+      description: query request
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/query'
+        logic:
+          $ref: '#/components/schemas/logic'
+    queryResponse:
+      description: query response
+      type: object
+      properties:
+        sources:
+          type: array
+          items:
+            type: integer
+        records:
+          type: array
+          items:
+            type: string
+    query:
+      type: object
+      properties:
+        components:
+          type: object
+          properties:
+            subjectVariant:
+              type: array
+              items:
+                $ref: '#/components/schemas/subjectVariant'
+            eav:
+              type: array
+              items:
+                type: object
+                properties:
+                  attribute:
+                    type: string
+                  operator:
+                    type: string
+                  value:
+                    type: string
     logic:
       oneOf:
         - type: object
