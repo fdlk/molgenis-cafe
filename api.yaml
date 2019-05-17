@@ -75,23 +75,27 @@ components:
       type: object
       properties:
         components:
-          type: object
-          properties:
-            subjectVariant:
-              type: array
-              items:
-                $ref: '#/components/schemas/subjectVariant'
-            eav:
-              type: array
-              items:
-                type: object
-                properties:
-                  attribute:
-                    type: string
-                  operator:
-                    type: string
-                  value:
-                    type: string
+          $ref: "#/components/schemas/components"
+    components:
+      type: object
+      properties:
+        subjectVariant:
+          type: array
+          items:
+            $ref: '#/components/schemas/subjectVariant'
+        eav:
+          type: array
+          items:
+            $ref: "#/components/schemas/eav"
+    eav:
+      type: object
+      properties:
+        attribute:
+          type: string
+        operator:
+          type: string
+        value:
+          type: string
     logic:
       oneOf:
         - type: object
