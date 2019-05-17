@@ -3,16 +3,16 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.molgenis</groupId>
-  <artifactId>molgenis-cafe</artifactId>
+  <artifactId>cafe-molgenis</artifactId>
   <packaging>jar</packaging>
-  <name>molgenis-cafe</name>
-  <version>0.0.1</version>
+  <name>cafe-molgenis</name>
+  <version>0.0.1-SNAPSHOT</version>
   <properties>
     <java.version>1.8</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <springfox-version>2.7.0</springfox-version>
-    <docker.image.prefix>registry.molgenis.org</docker.image.prefix>
+    <docker.image.prefix>registry.molgenis.org/molgenis/</docker.image.prefix>
   </properties>
   <parent>
     <groupId>org.springframework.boot</groupId>

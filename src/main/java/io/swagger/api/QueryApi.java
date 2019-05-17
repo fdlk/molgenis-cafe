@@ -28,9 +28,9 @@ import java.util.Map;
 @Api(value = "query", description = "the query API")
 public interface QueryApi {
 
-    @ApiOperation(value = "Make a search query with any combination of the components listed.", nickname = "postQuery", notes = "Make a complex query by combining the available components and defining the correct query structure with a simple query string expresses in the form of boolean logic. e.g. (A AND B) OR C", response = SubjectVariant.class, tags={  })
+    @ApiOperation(value = "Make a search query with any combination of the components listed.", nickname = "postQuery", response = Map.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Successful response", response = SubjectVariant.class),
+        @ApiResponse(code = 200, message = "Successful response", response = Map.class),
         @ApiResponse(code = 400, message = "Unsuccessful response", response = Object.class) })
     @RequestMapping(value = "/query",
         produces = { "application/json", "text/plain" }, 
@@ -38,4 +38,12 @@ public interface QueryApi {
         method = RequestMethod.POST)
     ResponseEntity<Map> postQuery(@ApiParam(value = ""  )  @Valid @RequestBody Body body);
 
+  @ApiOperation(value = "Retrieve metadata for the source.", nickname = "getMeta",  response = Map.class, tags={  })
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response", response = Map.class),
+      @ApiResponse(code = 400, message = "Unsuccessful response", response = Object.class) })
+  @RequestMapping(value = "/meta",
+      produces = { "application/json", "text/plain" },
+      method = RequestMethod.GET)
+    public ResponseEntity<Map> getMeta();
 }

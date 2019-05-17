@@ -9,4 +9,8 @@ import java.util.List;
 public class Or implements Logic{
   @JsonProperty("-OR")
   List<Logic> predicates;
+
+  public List<Logic> getPredicates() {
+    return predicates;
+  }
 }

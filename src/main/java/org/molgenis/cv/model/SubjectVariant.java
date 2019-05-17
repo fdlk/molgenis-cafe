@@ -15,7 +15,7 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-05-15T19:31:09.233299+02:00[Europe/Amsterdam]")
 
-public class SubjectVariant   {
+public class SubjectVariant {
   @JsonProperty("componentID")
   private String componentID = null;
 

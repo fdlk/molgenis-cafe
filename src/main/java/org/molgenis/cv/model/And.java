@@ -8,5 +8,9 @@ import java.util.List;
 @JsonDeserialize(using = JsonDeserializer.None.class)
 public class And implements Logic {
   @JsonProperty("-AND")
-  List<Logic> predicates;
+  private List<Logic> predicates;
+
+  public List<Logic> getPredicates() {
+    return predicates;
+  }
 }
