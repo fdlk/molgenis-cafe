@@ -23,5 +23,8 @@
 #!docs/README.md
 
 README.md
-pom.xml
 application.properties
+**/Logic.java
+**/ApiApi.java
+**/ApiApiControllerIntegrationTest.java
+**/ApiApiController.java

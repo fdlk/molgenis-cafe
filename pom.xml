@@ -67,9 +67,10 @@
             <configuration>
               <inputSpec>${project.basedir}/api.yaml</inputSpec>
               <language>spring</language>
+              <configurationFile>${project.basedir}/swagger-config.json</configurationFile>
+              <ignoreFileOverride>${project.basedir}/.swagger-codegen-ignore</ignoreFileOverride>
               <configOptions>
                 <sourceFolder>src/main/java</sourceFolder>
-                <configurationFile>swagger-config.json</configurationFile>
               </configOptions>
             </configuration>
           </execution>
