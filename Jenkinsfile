@@ -5,7 +5,7 @@ pipeline {
         }
     }
     environment {
-        LOCAL_REPOSITORY = "${LOCAL_REGISTRY}/molgenis/molgenis-app"
+        LOCAL_REPOSITORY = "${LOCAL_REGISTRY}/molgenis/molgenis-cafe"
         TIMESTAMP = sh(returnStdout: true, script: "date -u +'%F_%H-%M-%S'").trim()
     }
     stages {
@@ -33,7 +33,7 @@ pipeline {
                 stage('Build and deploy [ PR ]') {
                     steps {
                         container('maven') {
-                            sh "mvn -q -B deploy"
+                            sh "mvn -B deploy"
                         }
                     }
                     post {
