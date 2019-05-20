@@ -5,6 +5,8 @@
  */
 package org.molgenis.cv.api;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 import org.molgenis.cv.model.QueryRequest;
 import org.molgenis.cv.model.QueryResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +14,7 @@ import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,10 +71,10 @@ public interface ApiApi {
         @ApiResponse(code = 200, message = "Successful response", response = QueryResponse.class),
         @ApiResponse(code = 400, message = "Unsuccessful response", response = Object.class) })
     @RequestMapping(value = "/api/cv/query",
-        produces = { "application/json", "text/plain" }, 
-        consumes = { "application/json" },
+        produces = { APPLICATION_JSON_VALUE },
+        consumes = { APPLICATION_JSON_VALUE },
         method = RequestMethod.POST)
-    default ResponseEntity<QueryResponse> postQuery(@ApiParam(value = ""  )  @Valid @RequestBody QueryRequest body) {
+    default ResponseEntity<QueryResponse> postQuery(@ApiParam @Valid @RequestBody QueryRequest body) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
             log.warn("ObjectMapper or HttpServletRequest not configured in default ApiApi interface so no example is generated");
